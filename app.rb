@@ -58,7 +58,7 @@ class WordGuesserApp < Sinatra::Base
   # wrong_guesses and word_with_guesses from @game.
   get '/show' do
     ### YOUR CODE HERE ###
-    if @gmae.word.nil? || @game.word.empty?
+    if @game.word.nil? || @game.word.empty?
       redirect '/new'
     elsif @game.check_win_or_lose == :win
       redirect '/win'
@@ -75,7 +75,7 @@ class WordGuesserApp < Sinatra::Base
     if @game.check_win_or_lose == :win
       erb :win
     else
-      erb :show
+      redirect '/show'
     end
   end
 
@@ -84,7 +84,7 @@ class WordGuesserApp < Sinatra::Base
     if @game.check_win_or_lose == :lose
       erb :lose
     else
-      erb :show
+      redirect '/show'
     end
   end
 end

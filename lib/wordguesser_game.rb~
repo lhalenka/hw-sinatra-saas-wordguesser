@@ -11,13 +11,10 @@ class WordGuesserGame
   end
 
   def guess(letter)
-    if letter.nil?
-      raise ArgumentError, "You inputted nothing!"
-    end
-    if letter.empty? || letter !~ /[a-zA-Z]/
+    if letter.empty? || letter.nil || letter !~ /[a-zA-Z]/
       raise ArgumentError, "Try a valid guess"
     end
-    if @wrong_guesses.include?(letter) || @guesses.include?(letter) || letter =~ /[A-Z]/
+    if @wrong_guesses.include?(letter) || @guesses.include(letter)
       return false
     end
     
@@ -29,34 +26,6 @@ class WordGuesserGame
       return true
     end
   end
-
-  def word_with_guesses
-    if @guesses.empty?
-      size = '-' * @word.length
-      return size
-    end
-    final = ''
-    @word.each_char do |letter|
-      if @guesses.include?(letter)
-        final += letter
-      else
-        final += '-'
-      end
-    end
-    return final
-  end
-
-  def check_win_or_lose
-    if @wrong_guesses.length >= 7
-      return :lose
-    elsif word_with_guesses.count('-') == 0
-      return :win
-    else
-      return :play
-    end
-  end
-
-
 
   # You can test it by installing irb via $ gem install irb
   # and then running $ irb -I. -r app.rb
